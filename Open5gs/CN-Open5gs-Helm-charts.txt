@@ -1,0 +1,13 @@
+Installing Open5gs – Core Network:
+
+https://artifacthub.io/packages/helm/adaptivenetlab/open5gs – Open5gs -> helms chart packages
+
+Add Helm repo and install in the K8S cluster :
+
+$ helm repo add adaptivenetlab https://adaptivenetlab.github.io/charts/
+$ helm install my-open5gs adaptivenetlab/open5gs --version 1.0.3 -n open5gs
+
+Add sim details in the Database of open5gs UI:
+    • Change the Web-ui service into NodePort to access outside the K8S cluster (By editing Type : NodePort instead of ClusterIP in SVC)
+    • Add the required details in Open5gs Ui to stored the sim details in the Open5gs mongo-database .
+    • Required details like IMSI ,Ki and OPC ,which is added to the database.
