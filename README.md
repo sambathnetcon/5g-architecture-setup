@@ -91,6 +91,7 @@ $ helm install my-open5gs adaptivenetlab/open5gs --version 1.0.3 -n open5gs
 ```
 
 # Add sim details in the Database of open5gs UI:
+
     • Change the Web-ui service into NodePort to access outside the K8S cluster (By editing Type : NodePort instead of ClusterIP in SVC)
     • Add the required details in Open5gs Ui to stored the sim details in the Open5gs mongo-database .
     • Required details like IMSI ,Ki and OPC ,which is added to the database.
