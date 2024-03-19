@@ -1,0 +1,61 @@
+AETHER – CONTROL NODE: 
+
+Haswell CPU (or newer), with at least 4 CPU cores and 16GB RAM.
+    • Clean install of Ubuntu 20.04 or 22.04 Server ISO(or later) kernel.
+For example, something like an Intel N100 is likely more than enough to get started.
+
+Pre-requestie:
+
+     sudo apt update
+     sudo apt upgrade 
+     sudo apt install net-tools 
+     sudo apt install iptables-persistent
+     sudo apt install netplan.io
+ 
+Check whether the firewall is disable :
+
+     sudo systemctl status ufw.service 
+     sudo systemctl stop ufw.service 
+     sudo systemctl disable ufw.service 
+  
+Check whether the network service is enabled:
+ 
+     systemctl status systemd-networkd.service
+
+Removing python3 and Installing python 3.8 v-env:
+ 
+     sudo apt autoremove python3.10
+     python3 –version
+
+Installing Pipx and Python 3.8 - venv :
+
+     sudo apt install pipx
+     sudo apt update
+     sudo apt install ubuntu-advantage-tools
+     sudo apt install software-properties-common
+     sudo add-apt-repository ppa:deadsnakes/ppa
+     sudo apt install python3.8-venv
+
+Note that Aether assumes Ubuntu Server (as opposed to Ubuntu Desktop), the main implication being that it uses systemd-networkd rather than Network Manager to manage network settings. It is possible to work around this requirement, but be aware that doing so may impact the Ansible playbook for installing SD-Core.
+OnRamp depends on Ansible, which you can install on your server as follows:
+
+$ pipx install --include-deps ansible
+$ pipx ensurepath
+$ sudo apt-get install sshpass
+$ sudo apt install ansible
+
+Once installed, displaying the Ansible version number should result in output similar to the following:
+
+$ ansible --version
+$ ansible-galaxy collection install kubernetes.core
+
+Note that a fresh install of Ubuntu may be missing other packages that you need (e.g., git, curl, make), but you will be prompted to install them as you step through the Quick Start sequence.
+
+Download Aether OnRamp
+Once ready, clone the Aether OnRamp repo on this target deployment server:
+
+$ git clone --recursive https://github.com/opennetworkinglab/aether-onramp.git
+$ cd aether-onramp
+
+To Install K8S Cluster:
+$make aether-k8s-install
