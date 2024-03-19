@@ -1,0 +1,10 @@
+5G Quectel Modem :
+
+https://ubuntu.com/core/docs/networkmanager/configure-cellular-connections – follow these steps to enable cellular connection in ubuntu 22.04 server,
+
+$ sudo apt install network-manager
+$ snap install modem-manager
+$ sudo mmcli -L
+$ sudo mmcli -m 0
+$ nmcli c add type gsm ifname wwx0ef0fc69011f con-name NETCON apn  internet 
+$ nmcli r wwx0ef0fc69011f on
