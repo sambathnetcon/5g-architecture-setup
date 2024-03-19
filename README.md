@@ -98,15 +98,18 @@ $ helm install my-open5gs adaptivenetlab/open5gs --version 1.0.3 -n open5gs
 
 # GNODEB – CABLE-FREE RAN:
 
-      Connect Core network to Gnb(cable free) :
+    Connect Core network to Gnb(cable free) :
     • After installing open5gs on Aether-Rancher , check whether the pod ,service are successfully deployed on the K8S cluster.
     • On the K8S Cluster ,service of AMF will be in NodePort for Internal to External traffic.
     • Copy the Service NodePort IP of the AMF and saved it for to use in Gnb Configuration File(enb.cfg).
       
-      5G NR GNB :
-    • Check whether the Gnb is connected in the same network with Core network and reachable to all the micro service running the K8S cluster by adding default route to the Gnb machine . 
+  #    5G NR GNB :
+    • Check whether the Gnb is connected in the same network with Core network and reachable to all the micro service running the K8S cluster by adding default route to the Gnb machine .
+    
       1. Verify Network Connectivity: Ensure that the Gnb machine is connected to the same network as the Core network. You can do this by checking the network configuration on the Gnb machine and comparing it with the network configuration of the Core network. Ensure that both networks have compatible IP address ranges and subnet masks.
+      
       2. Check Default Gateway: Verify that the Gnb machine has a default gateway configured. The default gateway is the IP address of the router or gateway device that connects the Gnb machine to the wider network, including the Core network. You can check the network configuration on the Gnb machine to confirm the presence of a default gateway.(Example :- sudo ip r add 0.0.0.0/0 via <Core static ip>) 
+      
       3. Validate Reachability: To ensure that the Gnb machine is reachable by all the microservices running on the K8S cluster, you can perform the following steps:
       
       a. From a microservice within the K8S cluster, attempt to ping the IP address of the Gnb machine. If the ping is successful, it indicates that the Gnb machine is reachable from within the K8S cluster.
@@ -116,6 +119,7 @@ $ helm install my-open5gs adaptivenetlab/open5gs --version 1.0.3 -n open5gs
        c. Verify Routing: Check the routing tables on the Gnb machine to ensure that it has a route to reach the IP addresses used by the K8S cluster. This includes the IP addresses assigned to the microservices running on the cluster. If the Gnb machine does not have a route to the K8S cluster's IP addresses, you may need to add a specific route or adjust the default route configuration on the Gnb machine.
     • Switch to the root user to edit the configuration files of root/lte.../config/enb.cfg by adding the AMF IP address and Change the gtpu address of Gnb IP address (static ip where we set) ,save and exit.
     • Check whether the Gnb and Core are connected by Cable free UI ,where Gnap is connected to the service IP of AMF or Log file generate in gnb0.log file(path nano /tmp/gnb0.log). If Gnb is connected ,then check the (UE device which the sim is attached) Cable free  outdoor CPE has connected to the Gnb in Cable free UI.
+    
     • Check whether the CPE/5G MODEM(UE) devices has attached SIM .UPF (Core network – NFV) will assign an IP address for CPE(UE) by tunnel created in UPF. 
       1 . The CPE/5G MODEM can have an IP address assigned to it by the UPF (User Plane Function) in the core network, which is a component of the 5G network architecture based on NFV (Network Function Virtualization).
       2 . When a CPE/5G MODEM connects to the network, it establishes a communication link with the UPF via a tunnel. This tunnel is created between the CPE/5G MODEM and the UPF to facilitate the transmission of data packets.
